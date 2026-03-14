@@ -2,21 +2,24 @@ body{
     background-color:rgb(51, 51, 144);
     min-height: 400px;
     display: flex;
+    flex-direction: column;
     border: 8px solid black;
-    justify-content: center;
+    justify-content: space-between;
     
 }
 .main-1{
     display: flex;
     background-color: aqua;
     max-height: 150px;
-    align-items: flex-end;
+    justify-content: center;
+    
 }
 .main-2{
     display: flex;
     background-color: blueviolet;
     max-height: 150px;
-    align-items: flex-start;
+    justify-content: center;
+    
 }
 
 .main1{
