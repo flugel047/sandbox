@@ -13,38 +13,59 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 let map,mapEvent;
 
-navigator.geolocation.getCurrentPosition(function(posistion){
-    console.log('posistion loaded')
-    const {latitude}=posistion.coords;
-    const {longitude}=posistion.coords;
-    console.log(`latitude: ${latitude}, longitude: ${longitude}`);
-    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
-    const coords=[latitude,longitude];
+class App{
+    constructor (){}
 
-    map = L.map('map').setView(coords, 13);
+    _getPosistion(){
+            navigator.geolocation.getCurrentPosition(this._loadMap,function(){
+            console.log('navigator failed');
+        })
+    }
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    _loadMap(posistion)
+    {
+        console.log('posistion loaded')
+        const {latitude}=posistion.coords;
+        const {longitude}=posistion.coords;
+        console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+        console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+        const coords=[latitude,longitude];
 
-    
+        map = L.map('map').setView(coords, 13);
 
-    map.on('click',function(eventM){
-        mapEvent=eventM;
-        form.classList.remove('hidden');
-        inputDistance.focus();
-        console.log(eventM);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
         
+
+        map.on('click',function(eventM)
+        {
+            mapEvent=eventM;
+            form.classList.remove('hidden');
+            inputDistance.focus();
+            console.log(eventM);
+       
+        }     );
+    }
         
-    });
-},
-function(){
-    console.log('navigator failed');
-})
+
+    _showForm(){}
+
+    toggleElevationField(){}
+
+    _newWorkout(){}
+
+    }
+
+    const app= new App();
+    app._getPosistion();
+
+
 
 form.addEventListener('submit',function(e){
     e.preventDefault();
+    inputDistance.value=inputDuration.value=inputCadence.value=inputElevation.value='';
     const{lat,lng}=mapEvent.latlng
 
         L.marker([lat,lng]).addTo(map)
