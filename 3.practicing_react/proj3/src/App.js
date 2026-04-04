@@ -2,10 +2,11 @@ import { useState } from "react";
 
 function App() {
 
-  let [step,setStep]=useState(0);
+  let [step,setStep]=useState(1);
   let [count,setCount]=useState(0);
 
   let date= new Date();
+  date.setDate(date.getDate()+count);
   
 
   return (
@@ -17,12 +18,12 @@ function App() {
       </div>
 
       <div className="box2" style={{display:"flex"}} >
-      <button onClick={() => setCount((s) => s - 1)}>-</button>
-        <h2>Step: {count}</h2>
-      <button onClick={() => setCount((s) => s + 1)}>+</button>  
+      <button onClick={() => setCount((s) => s - step)}>-</button>
+        <h2>Count: {count}</h2>
+      <button onClick={() => setCount((s) => s + step)}>+</button>  
       </div>
       
-      <h2>Today is {date.toDateString()}</h2>
+      <h2>{count?`${count} days from today is ${date.toDateString()}` :`Today is ${date.toDateString()}`}</h2>
     </div>
   );
 }
