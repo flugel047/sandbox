@@ -22,23 +22,48 @@ function Logo(){
 }
 
 function Form(){
+
+  function handleSubmit(e){
+    e.preventDefault();
+    console.log('achnikta');
+  }
+
   return(
+    <form className="add-form" onSubmit={handleSubmit}>    
     <div className="add-form">
       <h3>What do you need for your trip ?</h3>
+      <select>{Array.from({length:20},(_,i)=>i+1).map
+      (num=>(<option value={num} key={num}>
+      {num}
+      </option>
+      ))}
+      </select>
+      <input type="text" placeholder="items"/>
+      <button onClick={handleSubmit}>Add</button>
     </div>
+    </form>
+
   )
 }
 
 function PackagingList(){
   return(
-    <li className="list">
-      {initialItems.map(item=><Item item={item}/>)}
-    </li>
+    <div className="list">
+    <ul>
+      {initialItems.map(item=><Item item={item} key={item.id}/>)}
+    </ul>
+    </div>
   )
 }
 
 function Item({item}){
-  return <li>{item.description}</li>
+  return <li>
+  <span style={item.packed ? {textDecoration:"line-through"}:{}}>
+    {item.quantity}  {item.description}
+  </span>
+      <button>❌</button>
+
+    </li>
 }
 
 function Stats(){
