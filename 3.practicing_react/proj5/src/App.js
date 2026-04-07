@@ -41,7 +41,7 @@ function App() {
   return (
     <div className="App" style={{backgroundColor:'blueviolet', padding:'20px'}} >
       {questions.map((q)=>(
-      <div style={{margin: '20px', backgroundColor:q.id===selectedId ?'red':'greenyellow'}} onClick={()=>setSelectedId(q.id)} >
+      <div key={q.id} style={{margin: '20px', backgroundColor:q.id===selectedId ?'red':'greenyellow'}} onClick={()=>setSelectedId(q.id)} >
         <p>{q.id===selectedId?q.answer:q.question}</p>
       </div>))}
     </div>
